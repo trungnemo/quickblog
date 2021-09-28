@@ -1,4 +1,4 @@
-# Startup
+**# Startup
 
 - Create djangoproject: quickblog
 - Create django app: blog
@@ -72,3 +72,4 @@ urlpatterns = [
 [TrungNEMO](https://www.facebook.com/TrungNEMO)
 ## License
 [KenBroTech Videos](https://www.youtube.com/playlist?list=PLInvlTu9nmo9Saxdd70M4f0m5jcPrWXd7)
+**
