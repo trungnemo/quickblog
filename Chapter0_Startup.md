@@ -87,6 +87,9 @@ urlpatterns = [
     <!--Page Content-->
     {% block content %}
     {% endblock %}
+     <!--Blog Menu: To Add a Post Form -->
+    {% block menu %}
+    {% endblock %}
 </body>
 </html>
 ```
@@ -122,6 +125,9 @@ urlpatterns = [
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
     <!--Page Content-->
     {% block content %}
+    {% endblock %}
+     <!--Blog Menu: To Add a Post Form -->
+    {% block menu %}
     {% endblock %}
 </body>
 </html>
@@ -247,6 +253,9 @@ python manage.py runserver
     {% include 'partials/navbar.html' %}
     <!--Page Content-->
     {% block content %}
+    {% endblock %}
+     <!--Blog Menu: To Add a Post Form -->
+    {% block menu %}
     {% endblock %}
 </body>
 </html>
