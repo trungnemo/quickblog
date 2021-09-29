@@ -36,7 +36,7 @@ We layout the Post listing page (the Right pane)
 {% block content %}
 <div class="container">
         <!--The row contains 12 cols of bootstrap-->
-        <div class="row mt-5 pt-5">
+        <div class="row mt-0 pt-5">
             <!--The Left Pain: for the Menu: it takes 4 columns-->
             <div class="col-md-4">
                 <div class="card">
