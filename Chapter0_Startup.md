@@ -1,13 +1,16 @@
 # Startup
 
+- Create the git repository, named BenLoggers
 - Create djangoproject: quickblog
 - Create django app: blog
 
 
 ## Commands for startups
+- Goto the github.com and login with your account, then create the git repository
+The Name of repository should be BenLoggers
 - Create a django project
 ```bash
-django-admin startproject quickblog
+django-admin startproject BenLoggers
 ```
 -Create django app
 ```python
@@ -30,7 +33,7 @@ INSTALLED_APPS = [
 - We add templates folder into the Project folder same level as blog 
 - In the templates, we add blog and partials folders
 ```bash
-quickblog
+BenLoggers
 +blog
 +quockblog
 +templates
@@ -194,7 +197,7 @@ python manage.py runserver
 ```html
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">BenLoggers</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
