@@ -120,8 +120,114 @@ def index(request):
     </div>
 {% endblock %}
 ```
+## Create A Post
+- We add a new file forms.py into the blog folder
+- We add a class PostForm 
+```python
+from django import forms
+from .models import Post 
+
+#To input post
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title','content')
+```
+- We add a PostForm to the index view for creating a Post
+```python
+from django.shortcuts import render, redirect
+from .models import Post
+from .forms import PostForm
+# Create your views here.
+
+# def index(request):
+#     #Use the django ORM framework to get the data 
+#     posts = Post.objects.all()
+#     return render(request, 'blog/index.html', {'posts':posts})
 
 
+def index(request):
+    #Use the django ORM framework to get the data 
+    posts = Post.objects.all()
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            #Get the instance form the save but not commit the data to the DB, in mem
+            instance = form.save(commit=False)
+            #Set the author for the created post form
+            instance.author = request.user
+            #Save to the DB with the author is the logon user
+            instance.save()
+            #after save OK, redirect the page to the index page, the names are defined in the urls.py
+            return redirect('index')
+    else:
+        form = PostForm()
+
+    context = {
+        'posts':posts,
+        'form': form
+    }
+    return render(request, 'blog/index.html', context)
+```
+- We add a form to the templates/blog/index.html
+```html
+{% extends 'partials/base.html '%}
+
+<!--Index Page Title-->
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+<!--Index Content -->
+{% block content %}
+<div class="container">
+        <!--The row contains 12 cols of bootstrap-->
+        <div class="row pt-5">
+            <!--The Left Pain: for the Menu: it takes 4 columns-->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body shadow">
+                        <form action="POST">
+                            {{ form }}
+                            <br/>
+                            <input type="submit" class="btn btn-primary" value="Post">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--The Right Pain: for Post Index: it takes 8 columns-->
+            <div class="col-md-8">
+                <!--We use the card for each post-->
+                <div class="card">
+                    <div class="card-body">
+                        {% for p in posts %}
+                        <!--A Post 1 -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="" alt="Post Image">
+                            </div>
+                            <div class="col-md-8">
+                                <!--post 1-->
+                               <div class="card shadow my-2">
+                                    <small>{{ p.date_created }}</small>
+                                    <hr/>
+                                    <a class="h3" href="">{{ p.title }}</a>
+                                    <p class="text-justify p-3">
+                                        {{ p.content|safe }}
+                                    </p>
+                               </div>
+                              
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+```
 
 ## Contributing
 [TrungNEMO](https://www.facebook.com/TrungNEMO)
