@@ -1,5 +1,7 @@
 # Blog CRUD (Create, Read, Update, Delete)
-- 
+We add functionalities to
+- List (Read) all posts
+- Create (Add) a new post, Update a post , Delete a Post
 ## Blog model
 - Create a class Blog in the models.py, to hold the blog post information
 - The Model model has a relationship with the registered users/members, cause only members can upload a new post, so he/she becomes an authors of a post
