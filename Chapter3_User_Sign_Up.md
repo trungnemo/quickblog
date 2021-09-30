@@ -64,7 +64,7 @@ from django.urls  import path
 from .views import sign_up
 
 urlpatterns = [
-    path('sign_up', sign_up, name = 'member-sign-up' ),
+    path('sign_up/', sign_up, name = 'member-sign-up' ),
 ] 
 ```
 - We add the members.urls.py into the django project (BenLoggers) urls.py
@@ -75,7 +75,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('members', include('members.urls'))
+    path('', include('members.urls'))
 ```
 
 
