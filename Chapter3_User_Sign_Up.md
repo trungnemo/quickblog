@@ -29,13 +29,27 @@ INSTALLED_APPS = [
 ## Register User/ Create a new member
 - We start at the members/views.py
 ```python
-from django.shortcuts import render
+from django.contrib.auth import forms
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
 def sign_up(request):
-    return render(request, 'memebrs/sign_up.html', {})
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    
+    context = {
+        'form': form
+    }
+    
+    return render(request, 'members/sign_up.html', context)
 
 ```
 - We create a new folder named members in the templates folder
@@ -45,11 +59,28 @@ def sign_up(request):
     {% load crispy_forms_tags %}
     <!--Index Page Title-->
     {% block title %}
-    <title>Sign up </title>
+    <title>Member sign up </title>
     {% endblock %}
 
     {% block content %}
-    <h3>New User Registration Form</h3>
+    <div class="container">
+        <div class="row mt-5 pt-3">
+            <div class="col-md-5 offset-md-6">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <h4>Benloggers Member Signup</h4>
+                        <hr/>
+                        <form method = "POST" >
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <br/> 
+                            <input type="submit" class="btn btn-primary btn-block" value="Sign up">    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endblock %}
 ```
 - We add a new file urls.py into the members folder app
@@ -67,18 +98,73 @@ urlpatterns = [
     path('sign_up/', sign_up, name = 'member-sign-up' ),
 ] 
 ```
-- We add the members.urls.py into the django project (BenLoggers) urls.py
-```
-from django.contrib import admin
-from django.urls import path, include
-
+- We INCLUDE the urls.py of members app into the django project (BenLoggers) urls.py
+```python
+from django.urls import path
+from django.urls.resolvers import URLPattern 
+from .views import index, about
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blog.urls')),
-    path('', include('members.urls'))
+    path('', index, name = "index"),
+    path('about', about, name = "about"),
+]
+```
+- Now we can run the server and try to register a user test
+```bash
+python managre.py runserver
 ```
 
+## Improve the signup with our customized SignupForm 
+- We add a new file forms.py into the members
+- We add a class SignUpForm 
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django import forms
+from django.db import models
 
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField() 
+
+    class Meta:
+        model = User
+        fields = ['username','email','password1','password2']
+    #Later on , overwrite this function to see the dif
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        #Loop all the fields and hide all the desc on the text field
+        for fieldname in ['username','email','password1','password2']:
+            self.fields[fieldname].help_text = None
+```
+- We use this form by adding to the members.views.py
+```python
+from django.contrib.auth import forms
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
+# Create your views here.
+
+def sign_up(request):
+    
+    if request.method == 'POST':
+        #form = UserCreationForm(request.POST)
+        form  = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        #form = UserCreationForm()
+        form = SignUpForm()
+    
+    context = {
+        'form': form
+    }
+    
+    return render(request, 'members/sign_up.html', context)
+```
+- Now run the Web server to test the improvement
+```bash
+python manage.py runserver
+```
 
 ## Contributing
 [TrungNEMO](https://www.facebook.com/TrungNEMO)
