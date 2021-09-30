@@ -228,6 +228,113 @@ def index(request):
     </div>
 {% endblock %}
 ```
+## Improve the Input form with crispy package
+- We install the crispy to improve the input form
+
+```bash
+#Check if the packages installed already
+pip show django-crispy-forms
+#If not installed yet, then
+pip install django-crispy-forms
+#Update the requirements.txt of the project
+pip freeze > requirements.txt
+```
+- We go to the [online crispy guides](https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs) to
+-   Add the crispy_forms to the INSTALLED_APPS in the settings.py of the project BenLoggers
+-   Add crispy template to use
+```python
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
+    'crispy_forms'
+]
+
+
+#cripspy template
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+```
+- Add to our page: index.html
+```html
+{% extends 'partials/base.html '%}
+{% load crispy_forms_tags %}
+<!--Index Page Title-->
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+
+<!--Index Content -->
+{% block content %}
+<div class="container">
+        <!--The row contains 12 cols of bootstrap-->
+        <div class="row pt-5">
+            <!--The Left Pain: for the Menu: it takes 4 columns-->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body shadow">
+                        <form action="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <br/>
+                            <input class="btn btn-primary btn-block" type="submit"  value="Post">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--The Right Pain: for Post Index: it takes 8 columns-->
+            <div class="col-md-8">
+                <!--We use the card for each post-->
+                <div class="card">
+                    <div class="card-body">
+                        {% for p in posts %}
+                        <!--A Post 1 -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="" alt="Post Image">
+                            </div>
+                            <div class="col-md-8">
+                                <!--post 1-->
+                               <div class="card shadow my-2">
+                                    <small>{{ p.date_created }}</small>
+                                    <hr/>
+                                    <a class="h3" href="">{{ p.title }}</a>
+                                    <p class="text-justify p-3">
+                                        {{ p.content|safe }}
+                                    </p>
+                               </div>
+                              
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+```
+- If you want to set the number of rows for the content text box, we can edit the PostForm in blog\forms.oy like this
+```python
+from django import forms
+from .models import Post 
+
+#To input post
+class PostForm(forms.ModelForm):
+    #Set the number of rows for the content inputs in the form
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows':4}))
+    class Meta:
+        model = Post
+        fields = ('title','content')
+```
+
 
 ## Contributing
 [TrungNEMO](https://www.facebook.com/TrungNEMO)
