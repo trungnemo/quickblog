@@ -1,0 +1,26 @@
+    {% extends 'partials/base.html '%}
+    {% load crispy_forms_tags %}
+    <!--Index Page Title-->
+    {% block title %}
+    <title>Benloggers Login</title>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        <div class="row mt-5 pt-3">
+            <!--col-md-6 offset-md-6 for the center-->
+            <div class="col-md-6 offset-md-3">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <h4>Logout off Benloggers</h4>
+                        <hr/>
+                       <div class="alert alert-info">
+                           You have been logged out, See you back soon
+                       </div>
+                       <a href="{% url 'member-login' %}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

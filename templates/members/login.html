@@ -1,0 +1,39 @@
+    {% extends 'partials/base.html '%}
+    {% load crispy_forms_tags %}
+    <!--Index Page Title-->
+    {% block title %}
+    <title>Benloggers Login</title>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        <div class="row mt-5 pt-3">
+            <div class="col-md-5 offset-md-6">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <h4>Login to Benloggers</h4>
+                        <hr/>
+                        <form method = "POST" >
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            
+                            <br/>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </div>
+                        </form>
+                        <hr/>
+                        <div class="text-center my-3">
+                            <a href="">Forget Password</a>
+                        </div>
+                        <hr/>
+                        <div class="text-center my-3">
+                            <a href="{% url 'member-sign-up'%}" class="btn btn-success">Create an account</a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
