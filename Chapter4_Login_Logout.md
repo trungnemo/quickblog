@@ -38,16 +38,27 @@ urlpatterns = [
                         <form method = "POST" >
                             {% csrf_token %}
                             {{ form|crispy }}
+                            
                             <br/>
-                            <input type="submit" class="btn btn-primary btn-block" value="Login">    
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </div>
                         </form>
+                        <hr/>
+                        <div class="text-center my-3">
+                            <a href="">Forget Password</a>
+                        </div>
+                        <hr/>
+                        <div class="text-center my-3">
+                            <a href="{% url 'member-sign-up'%}" class="btn btn-success">Create an account</a>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {% endblock %}
-```
+    {% endblock %}```
 - We add LOGIN_REDIRECT_URL = 'index' to the settings.py of the project. So after the login, the app will redirect you to this page
 ```python
 # Get the 'index' name at blog.urls.py -> path('', index, name = "index")
@@ -97,7 +108,7 @@ urlpatterns = [
     </div>
     {% endblock %}
 ```
-## Wrapup the Signup, Login, Logout in the NavBar
+## Wrap up the Signup, Login, Logout in the NavBar
 ```html
 <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
   <div class="container my-0 p-0" >
