@@ -1,9 +1,9 @@
-{% extends 'partials/base.html '%}
-
-<!--Index Page Title-->
-{% block title %}
-<title>Home Page</title>
-{% endblock %}
+    {% extends 'partials/base.html '%}
+    {% load crispy_forms_tags %}
+    <!--Index Page Title-->
+    {% block title %}
+    <title>Home Page</title>
+    {% endblock %}
 
 <!--Index Content -->
 {% block content %}
@@ -16,7 +16,7 @@
                     <div class="card-body shadow">
                         <form action="POST">
                             {% csrf_token %}
-                            {{ form }}
+                            {{ form|crispy }}
                             <br/>
                             <input class="btn btn-primary btn-block" type="submit"  value="Post">
                         </form>

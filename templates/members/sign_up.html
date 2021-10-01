@@ -1,0 +1,27 @@
+    {% extends 'partials/base.html '%}
+    {% load crispy_forms_tags %}
+    <!--Index Page Title-->
+    {% block title %}
+    <title>Member sign up </title>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        <div class="row mt-5 pt-3">
+            <div class="col-md-5 offset-md-6">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <h4>Benloggers Member Signup</h4>
+                        <hr/>
+                        <form method = "POST" >
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <br/>
+                            <input type="submit" class="btn btn-primary btn-block" value="Sign up">    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
