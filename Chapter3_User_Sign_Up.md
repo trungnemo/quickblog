@@ -165,6 +165,11 @@ def sign_up(request):
 ```bash
 python manage.py runserver
 ```
+## Disable Password strength verification
+- Disable by add this config value into the django project settings.py
+```python
+AUTH_PASSWORD_VALIDATORS = []
+```
 
 ## Contributing
 [TrungNEMO](https://www.facebook.com/TrungNEMO)
