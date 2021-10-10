@@ -122,6 +122,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+STATIC_ROOT = BASE_DIR / 'asset'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'index'
+
+#ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+AUTH_PASSWORD_VALIDATORS = []

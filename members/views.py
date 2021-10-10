@@ -11,7 +11,7 @@ def sign_up(request):
         form  = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('member-login') #redirect('index')
     else:
         #form = UserCreationForm()
         form = SignUpForm()
@@ -22,3 +22,6 @@ def sign_up(request):
     
     return render(request, 'members/sign_up.html', context)
 
+
+def profile(request):
+    return render(request, 'members/profile.html', {})
